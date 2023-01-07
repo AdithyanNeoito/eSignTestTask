@@ -3,7 +3,10 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
+import formRoutes from "./routes/form.js";
 const app = express();
+
+app.use("/form", formRoutes);
 
 dotenv.config();
 //basic usage
