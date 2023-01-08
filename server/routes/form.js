@@ -1,7 +1,7 @@
 import express from "express";
-import { getForm } from "../controllers/form.js";
+import { createForm } from "../controllers/form.js";
 const router = express.Router();
 
-router.get("/", getForm);
+router.post("/", createForm);
 
 export default router;
