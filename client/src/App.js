@@ -38,7 +38,10 @@ function App() {
 
   //canvas actions
   const clear = () => sigCanvas.current.clear();
-  const save = () => setImageURL(sigCanvas.current.toDataURL());
+  const save = () => {
+    setImageURL(sigCanvas.current.toDataURL());
+    toast.success("Signature Saved");
+  };
 
   //state value clearing
   const clearValue = (value) => {
@@ -61,7 +64,7 @@ function App() {
     context.fillText(`${name}`, 10, 50);
   };
   useEffect(() => {
-    if (fontView === true) {
+    if (fontView === true && name.length) {
       const context = canvas.current.getContext("2d");
       const contextt = canvas2.current.getContext("2d");
       draw(context);
@@ -124,9 +127,6 @@ function App() {
   };
 
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
-  const clearFont = () => {
-    window.location.reload();
-  };
 
   useEffect(() => {
     if (check1 === true) {
@@ -221,54 +221,51 @@ function App() {
         {fontView ? (
           <div className="m:w-[400px]">
             <p className="text-[20px]">Predefined font</p>
-            <div className="flex flex-row">
-              <div className="mt-[20px]">
-                <Checkbox
-                  {...label}
-                  checked={check1}
-                  onChange={check1Handler}
-                />
-              </div>
-              <div>
-                <canvas
-                  ref={canvas}
-                  id="myCanvas"
-                  width="500"
-                  height="100"
-                ></canvas>
-              </div>
-            </div>
-            <div className="flex flex-row">
-              <div className="mt-[20px]">
-                <Checkbox
-                  {...label}
-                  checked={check2}
-                  onChange={check2Handler}
-                />
-              </div>
-              <div>
-                <canvas
-                  ref={canvas2}
-                  id="myCanvas"
-                  width="500"
-                  height="100"
-                ></canvas>
-              </div>
-            </div>
+            {name.length ? (
+              <>
+                <div className="flex flex-row">
+                  <div className="mt-[20px]">
+                    <Checkbox
+                      {...label}
+                      checked={check1}
+                      onChange={check1Handler}
+                    />
+                  </div>
+                  <div>
+                    <canvas
+                      ref={canvas}
+                      id="myCanvas"
+                      key={name.length + "1"}
+                      width="500"
+                      height="100"
+                    ></canvas>
+                  </div>
+                </div>
+                <div className="flex flex-row">
+                  <div className="mt-[20px]">
+                    <Checkbox
+                      {...label}
+                      checked={check2}
+                      onChange={check2Handler}
+                    />
+                  </div>
+                  <div>
+                    <canvas
+                      ref={canvas2}
+                      key={name.length + "2"}
+                      id="myCanvas"
+                      width="500"
+                      height="100"
+                    ></canvas>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="p-5">Please enter your name </div>
+            )}
           </div>
         ) : null}
         <div className="flex flex-row mb-[100px]">
-          {fontView ? (
-            <div className="mt-[5px] p-2">
-              <Button
-                onClick={clearFont}
-                variant="outlined"
-                className="text-[10px] "
-              >
-                ReCreate
-              </Button>
-            </div>
-          ) : null}
           <div className="p-2 mt-[5px]">
             <Button variant="contained" onClick={formSubmisson}>
               Create
@@ -278,6 +275,6 @@ function App() {
       </div>
     </div>
   );
-}
+} /*  */
 
 export default App;
