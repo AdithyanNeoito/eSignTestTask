@@ -76,6 +76,10 @@ function App() {
   const convert = (event) => {
     const imageFile = event.target.files[0];
     if (!imageFile.name.match(/\.(jpg|jpeg|png)$/)) {
+      toast.error("Please choose jpg,jpeg,png file", {
+        position: "top-right",
+        autoClose: 5000,
+      });
       return false;
     }
     let reader = new FileReader();
@@ -101,29 +105,35 @@ function App() {
       date: value,
       signature: imageURL,
     };
-    console.log("data", data);
-    await axios
-      .post(`${BASE_URL}/form`, data)
-      .then(function (response) {
-        console.log(response);
-        toast.success("Form data saved successfully", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
+    if (data.signature !== null) {
+      await axios
+        .post(`${BASE_URL}/form`, data)
+        .then(function (response) {
+          console.log(response);
+          toast.success("Form data saved successfully", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        })
+        .catch(function (error) {
+          toast.error("Something went wrong", {
+            position: "top-right",
+            autoClose: 5000,
+          });
+          console.log(error);
         });
-      })
-      .catch(function (error) {
-        toast.error("Something went wrong", {
-          position: "top-right",
-          autoClose: 5000,
-        });
-        console.log(error);
+    } else {
+      toast.error("Please add valid signature", {
+        position: "top-right",
+        autoClose: 5000,
       });
+    }
   };
 
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
