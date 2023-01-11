@@ -28,6 +28,7 @@ function App() {
   const [check1, setCheck1] = useState(false);
   const [check2, setCheck2] = useState(false);
   const [fontView, setFontView] = useState(true);
+  const [initial, setInitial] = useState("");
 
   let BASE_URL = "http://localhost:5000";
 
@@ -57,11 +58,11 @@ function App() {
   //for predefined font draw
   const draw = (context) => {
     context.font = "30px monospace";
-    context.fillText(`${name}`, 10, 50);
+    context.fillText(`${name} ${initial}`, 10, 50);
   };
   const draw2 = (context) => {
     context.font = "30px serif";
-    context.fillText(`${name}`, 10, 50);
+    context.fillText(`${name} ${initial}`, 10, 50);
   };
   useEffect(() => {
     if (fontView === true && name.length) {
@@ -101,7 +102,8 @@ function App() {
     console.log("SignatureUrl", imageURL);
 
     let data = {
-      name,
+      firstName: name,
+      lastName: initial,
       date: value,
       signature: imageURL,
     };
@@ -163,15 +165,27 @@ function App() {
         </p>
       </div>
       <div className="flex flex-col justify-center md:mt-[80px] md:ml-[65px] sm:ml-[190px] sm:mt-[10px]">
-        <div className="sm:ml-[2px] md:ml-[2px]">
-          <TextField
-            className="md:w-[400px]"
-            id="outlined-basic"
-            label="Name"
-            variant="outlined"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+        <div className="flex flex-row">
+          <div className="sm:ml-[2px] md:ml-[2px]">
+            <TextField
+              className="md:w-[400px]"
+              id="outlined-basic"
+              label="Name"
+              variant="outlined"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="sm:ml-[2px] md:ml-[8px] ">
+            <TextField
+              className="md:w-[400px]"
+              id="outlined-basic"
+              label="Initail"
+              variant="outlined"
+              value={initial}
+              onChange={(e) => setInitial(e.target.value)}
+            />
+          </div>
         </div>
         <div className="md:mr-[80px] mt-[30px] md:w-[400px] sm:ml-[2px] md:ml-[2px]">
           <LocalizationProvider dateAdapter={AdapterMoment}>

@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 const formSchema = mongoose.Schema({
-  name: String,
-  date: String,
+  firstName: String,
+  lastName: String,
   signature: String,
   createdAt: {
     type: Date,
