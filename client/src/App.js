@@ -259,7 +259,7 @@ function App() {
                     <canvas
                       ref={canvas}
                       id="myCanvas"
-                      key={name.length + "1"}
+                      key={name.length + initial.length + "1"}
                       width="500"
                       height="100"
                     ></canvas>
@@ -276,7 +276,7 @@ function App() {
                   <div>
                     <canvas
                       ref={canvas2}
-                      key={name.length + "2"}
+                      key={name.length + initial.length + "2"}
                       id="myCanvas"
                       width="500"
                       height="100"
