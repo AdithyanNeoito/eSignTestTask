@@ -180,7 +180,7 @@ function App() {
             <TextField
               className="md:w-[400px]"
               id="outlined-basic"
-              label="Initail"
+              label="Initial"
               variant="outlined"
               value={initial}
               onChange={(e) => setInitial(e.target.value)}
